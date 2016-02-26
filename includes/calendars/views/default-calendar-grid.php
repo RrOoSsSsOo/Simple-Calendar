@@ -174,6 +174,12 @@ class Default_Calendar_Grid implements Calendar_View {
 
 		$calendar = $this->calendar;
 
+		// Since password protection doesn't work naturally for our CPT we need to do this
+		if ( post_password_required() ) {
+			echo get_the_password_form();
+			return;
+		}
+
 		if ( $calendar instanceof Default_Calendar ) {
 
 			?>
