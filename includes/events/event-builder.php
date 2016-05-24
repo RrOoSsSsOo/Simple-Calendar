@@ -552,23 +552,7 @@ class Event_Builder {
 		$allow_html = 'no' != $attr['html']     ? true : false;
 		$allow_md   = 'no' != $attr['markdown'] ? true : false;
 
-		$html = '<div class="simcal-event-description" itemprop="description">';
-
-		// Markdown and HTML don't play well together, use one or the other in the same tag.
-		if ( $allow_html || $allow_md ) {
-			if ( $allow_html ) {
-				$description = wp_kses_post( $description );
-			} elseif ( $allow_md ) {
-				$markdown = new \Parsedown();
-				$description = $markdown->text( wp_strip_all_tags( $description ) );
-			}
-		} else {
-			$description = wpautop( $description );
-		}
-
-		$description = $this->limit_words( $description, $attr['limit'] );
-
-		$html .= $description . '</div>';
+		$html .= $description;
 
 		if ( 'no' != $attr['autolink'] ) {
 			$html = ' ' . make_clickable( $html );
